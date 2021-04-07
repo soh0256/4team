@@ -1,0 +1,4 @@
+최재우
+git reflog
+
+git reset {}
