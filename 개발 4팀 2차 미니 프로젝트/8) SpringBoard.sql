@@ -32,3 +32,5 @@ SHOW COLUMNS FROM BOARD;
 
 // BOARD 테이블에 데이터 삽입
 INSERT INTO BOARD(SEQ, TITLE, WRITER, CONTENT) VALUES(1, '가입인사', '관리자', '잘 부탁드립니다...');
+
+//드랍할때 DROP TABLE USERS(대상) CASCADE까지 작성하고 해도됨
