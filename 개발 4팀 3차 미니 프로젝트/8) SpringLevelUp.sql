@@ -37,20 +37,21 @@ CREATE TABLE TB_COM_USER(
   ADDRESS VARCHAR2(100),                  	-- 주소
   POST_NUM VARCHAR2(20),                   	-- 우편번호
   ENT_DATE DATE DEFAULT SYSDATE,                -- 회원가입일
-  GRADE VARCHAR2(10) DEFAULT 'User',         	-- 회원등급
+  GRADE VARCHAR2(10),         	-- 회원등급
   CONSTRAINT TB_COM_USER_PK PRIMARY KEY(ID)
 );
 
+  GRADE VARCHAR2(10) DEFAULT 'User',         	-- 회원등급
 
 --게시판정보
 DROP TABLE TB_BOARD CASCADE CONSTRAINT;
 CREATE TABLE TB_BOARD(
-  BOARD_NO VARCHAR2(30),             		-- 게시글번호
-  ID VARCHAR2(20),            			-- 아이디
-  BOARD_TITLE VARCHAR2(100),        		-- 게시글제목
-  BOARD_CONTENTS VARCHAR2(1000),     	-- 게시글내용
-  BOARD_DATE DATE DEFAULT SYSDATE,          	-- 게시글작성날짜
-  BOARD_HITS NUMBER DEFAULT 0,     	-- 조회수 
+  BOARD_NO VARCHAR2(30),             		-- 게시글번호 seq
+  ID VARCHAR2(20),            			-- 아이디 writer
+  BOARD_TITLE VARCHAR2(100),        		-- 게시글제목 title
+  BOARD_CONTENTS VARCHAR2(1000),     	-- 게시글내용 content
+  BOARD_DATE DATE DEFAULT SYSDATE,          	-- 게시글작성날짜 regdate
+  BOARD_HITS NUMBER DEFAULT 0,     	-- 조회수  cnt
   CONSTRAINT TB_BOARD_PK PRIMARY KEY(BOARD_NO),
   CONSTRAINT TB_BOARD_FK_USER FOREIGN KEY(ID) REFERENCES TB_COM_USER(ID)
 );
@@ -73,7 +74,7 @@ CREATE TABLE TB_REPLY(
 
 -- 공지사항
 DROP NOTICE CASCADE CONSTRAINT;
-CREATE NOTICE(
+CREATE TABLE NOTICE(
   NOTICE_NO VARCHAR2(30),             -- 공지사항번호
   NOTICE_TITLE VARCHAR2(1000),        -- 공지사항제목
   NOTICE_CONTENTS VARCHAR2(4000),     -- 공지사항내용
