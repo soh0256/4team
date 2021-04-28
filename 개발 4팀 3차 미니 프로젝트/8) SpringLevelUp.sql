@@ -41,7 +41,6 @@ CREATE TABLE TB_COM_USER(
   CONSTRAINT TB_COM_USER_PK PRIMARY KEY(ID)
 );
 
-  GRADE VARCHAR2(10) DEFAULT 'User',         	-- 회원등급
 
 --게시판정보
 DROP TABLE TB_BOARD CASCADE CONSTRAINT;
@@ -80,7 +79,7 @@ CREATE TABLE NOTICE(
   NOTICE_CONTENTS VARCHAR2(4000),     -- 공지사항내용
   NOTICE_DATE VARCHAR2(30),           -- 공지사항작성날짜
   NOTICE_HITS NUMBER DEFAULT 0,     -- 조회수 
-  CONSTRAINT TB_BOARD_PK PRIMARY KEY(NOTICE_NO)
+  CONSTRAINT TB_NOTICE_PK PRIMARY KEY(NOTICE_NO)
 );
 
 commit;
@@ -89,5 +88,5 @@ commit;
 
 -----------------------------------------------------------------------------------------------------------------------
 
--- tb_board테이블 시퀀스 입력
+* tb_board테이블 시퀀스 입력
 insert into tb_board(BOARD_NO ,id, board_title) VALUES(BOARD_SEQ.nextval ,'tt', 'test'); 
