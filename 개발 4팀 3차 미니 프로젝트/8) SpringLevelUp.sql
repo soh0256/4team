@@ -90,3 +90,6 @@ commit;
 
 * tb_board테이블 시퀀스 입력
 insert into tb_board(BOARD_NO ,id, board_title) VALUES(BOARD_SEQ.nextval ,'tt', 'test'); 
+
+* 테이블 삭제, 생성후 테이블 목록에 BIN$... 으로 시작하는 테이블이 생긴 경우
+SQL > PURGE RECYCLEBIN;
