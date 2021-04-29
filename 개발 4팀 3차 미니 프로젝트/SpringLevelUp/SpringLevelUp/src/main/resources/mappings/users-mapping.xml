@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserDAO">
+
+	<resultMap id="userResult" type="user">
+		<result property="id" column="ID" />
+		<result property="pw" column="PW" />
+		<result property="email" column="EMAIL" />
+		<result property="name" column="NAME" />
+		<result property="user_image" column="USER_IMAGE" />
+		<result property="birth" column="BIRTH" />
+		<result property="phone_num" column="PHONE_NUM" />
+		<result property="address" column="ADDRESS" />
+		<result property="ent_date" column="ENT_DATE" />
+		<result property="grade" column="GRADE" />
+	</resultMap>
+
+	<select id="getUser" parameterType="user">
+		<![CDATA[
+		SELECT *
+		FROM USERS
+		WHERE ID = #{id} and PASSWORD = #{pw}
+		]]>
+	</select>
+
+</mapper>
