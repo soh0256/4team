@@ -20,7 +20,7 @@ public class UserDAO {
 	private final String USER_GET = "select * from tb_com_user where id=? and pw=?";
 	private final String USER_SignUp = "insert into tb_com_user(id, pw, email, name, birth, phone_num, address, grade) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String USER_Modify = "update tb_com_user set pw = ? where id = ?";
-	private final String USER_Delete = "DELETE FROM tb_com_user(id, pw, email, name, birth, phone_num, address, grade)";
+	private final String USER_Delete = "DELETE FROM tb_com_user WHERE id=? and pw=?";
 	// CRUD 기능의 메소드 구현
 	// 회원 등록
 	public UserVO getUser(UserVO vo) {
@@ -93,12 +93,7 @@ public class UserDAO {
 			stmt = conn.prepareStatement(USER_Delete);
 			stmt.setString(1, vo.getId());
 			stmt.setString(2, vo.getPw());
-			stmt.setString(3, vo.getEmail());
-			stmt.setString(4, vo.getName());
-			stmt.setString(5, vo.getBirth());
-			stmt.setString(6, vo.getPhone_num());
-			stmt.setString(7, vo.getAddress());
-			stmt.setString(8, vo.getGrade());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

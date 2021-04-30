@@ -15,12 +15,16 @@
 		<form action="delete.do" method="post">
 			<table border="1" cellpadding="0" cellspacing="0">
 				<tr>
-					<td bgcolor="orange">회원탈퇴 하시겠습니까?</td>
-					
+					<td bgcolor="orange">아이디</td>
+					<td><input type="text" name="id" /></td>
+				</tr>
+				<tr>
+					<td bgcolor="orange">비밀번호</td>
+					<td><input type="pw" name="pw" /></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-					<input type="button" value="예" onclick="location.href='login.do'"/>
+					<input type="submit" value="회원탈퇴"/>
 					<input type="button" value="취소" onclick="location.href='getBoardList.do'" />
 				</tr>
 			</table>
