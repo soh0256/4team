@@ -18,4 +18,8 @@ public interface NoticeService {
 
 	// 글 목록 조회
 	List<NoticeVO> getNoticeList(NoticeVO vo);
+	
+	// 조회수
+	void viewCount(NoticeVO vo);
+	
 }

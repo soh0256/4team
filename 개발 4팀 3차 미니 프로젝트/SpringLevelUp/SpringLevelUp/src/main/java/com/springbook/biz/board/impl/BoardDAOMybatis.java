@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.springbook.biz.board.BoardVO;
+import com.springbook.biz.notice.NoticeVO;
 
 @Repository
 public class BoardDAOMybatis{
@@ -37,5 +38,10 @@ public class BoardDAOMybatis{
 	public List<BoardVO> getBoardList(BoardVO vo) {
 		System.out.println("===> Mybatis로 getBoardList() 기능 처리");
 		return mybatis.selectList("BoardDAO.getBoardList", vo);
+	}
+	
+	public void viewCount(BoardVO vo) {
+		System.out.println("===> Mybatis로 viewCount() 기능 처리");
+		mybatis.update("BoardDAO.viewCount", vo);
 	}
 }

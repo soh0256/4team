@@ -38,4 +38,9 @@ public class NoticeDAOMybatis{
 		System.out.println("===> Mybatis로 getNoticeList() 기능 처리");
 		return mybatis.selectList("NoticeDAO.getNoticeList", vo);
 	}
+	
+	public void viewCount(NoticeVO vo) {
+		System.out.println("===> Mybatis로 viewCount() 기능 처리");
+		mybatis.update("NoticeDAO.viewCount", vo);
+	}
 }

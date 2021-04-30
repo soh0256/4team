@@ -43,6 +43,14 @@
 		WHERE BOARD_NO = #{board_no}
 		]]>
 	</select>
+	
+	<update id="viewCount">
+		<![CDATA[
+		UPDATE TB_BOARD
+		SET BOARD_HITS = BOARD_HITS + 1
+		WHERE BOARD_NO = #{board_no}
+		]]>
+	</update>
 
 	<!-- Dynamic SQL 적용(SQL의 중복 문제 해결, 쿼리를 두개 만들 수 있었던것을 하나로 생성) -->
 	<!-- if라는 동적요소를 사용하여 조건에 따른 분기 처리를 함 -->

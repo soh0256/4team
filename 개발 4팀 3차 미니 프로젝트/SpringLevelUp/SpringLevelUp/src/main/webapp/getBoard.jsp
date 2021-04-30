@@ -1,4 +1,5 @@
 <%@page contentType="text/html; charset=EUC-KR"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,7 +32,7 @@
 				</tr>
 				<tr>
 					<td bgcolor="orange">등록일</td>
-					<td align="left">${board.board_date }</td>
+					<td align="left"><fmt:formatDate value="${board.board_date }" pattern="yyyy-MM-dd"/></td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">조회수</td>

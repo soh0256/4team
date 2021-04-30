@@ -68,6 +68,7 @@ public class BoardController {
 	@RequestMapping("/getBoard.do")
 	public String getBoard(BoardVO vo, Model model) {
 		model.addAttribute("board", boardService.getBoard(vo)); // Model 정보 저장
+		boardService.viewCount(vo);	// 글 조회시 조회수 sql문 실행
 		return "getBoard.jsp"; // View 이름 리턴
 	}
 

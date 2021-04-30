@@ -54,6 +54,7 @@ public class NoticeController {
 	@RequestMapping("/getNotice.do")
 	public String getNotice(NoticeVO vo, Model model) {
 		model.addAttribute("notice", noticeService.getNotice(vo)); // Model 정보 저장
+		noticeService.viewCount(vo);	// 글 조회시 조회수 sql문 실행
 		return "getNotice.jsp"; // View 이름 리턴
 	}
 
@@ -78,4 +79,5 @@ public class NoticeController {
 		model.addAttribute("noticeList", noticeService.getNoticeList(vo));
 		return "getNoticeList.jsp"; // View 이름 리턴
 	}
+	
 }
