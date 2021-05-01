@@ -69,9 +69,11 @@ public class UserController implements HttpSessionListener{//드디어 사진오
 	public String getUser(UserVO vo, HttpSession session) {
 		try {
 			UserVO user = userService.getUser(vo);
-			session.setAttribute("user", user);//한 데이터를 담는게 아니라 전체를 담는다. 
+			session.setAttribute("user", user);//한 데이터를 담는게 아니라 전체를 담는다.
+			// 공지사항 권한 나누기 위해 "userGrad"에 로그인하는 대상의 권한 저장
+			session.setAttribute("userGrad", user.getGrade()); 
 			if(user!=null) 
-				return "getBoardList.jsp";
+				return "getBoardList.do";
 		}catch(Exception e) {
 			e.printStackTrace();
 			return "index.jsp";

@@ -58,10 +58,10 @@
 		SELECT *
 		FROM TB_BOARD
 		WHERE 1 = 1
-		<if test="searchCondition == 'TITLE'">
+		<if test="searchCondition == 'BOARD_TITLE'">
 			AND BOARD_TITLE LIKE '%'||#{searchKeyword}||'%'
 		</if>
-		<if test="searchCondition == 'CONTENT'">
+		<if test="searchCondition == 'BOARD_CONTENTS'">
 			AND BOARD_CONTENTS LIKE '%'||#{searchKeyword}||'%'
 		</if>
 		ORDER BY BOARD_NO DESC

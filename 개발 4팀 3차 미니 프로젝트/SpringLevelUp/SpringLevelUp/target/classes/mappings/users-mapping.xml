@@ -3,26 +3,59 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="UserDAO">
-
+<!-- Dao 클래스이름 -->
+	
+	<!-- 참조할 VO클래스의 이름과 경로를 적어준다. <resultMap>의 속성 type 
+	설정파일에서 typeAliase로 경로 지정해주고 별칭지어줌으롯써 여기선 user라고-->
 	<resultMap id="userResult" type="user">
-		<result property="id" column="ID" />
+		<id property="id" column="ID" /><!-- 키값... 설마 이거때문에 널인가 -->
 		<result property="pw" column="PW" />
 		<result property="email" column="EMAIL" />
 		<result property="name" column="NAME" />
-		<result property="user_image" column="USER_IMAGE" />
 		<result property="birth" column="BIRTH" />
 		<result property="phone_num" column="PHONE_NUM" />
 		<result property="address" column="ADDRESS" />
+		<result property="post_num" column="POST_NUM" />
 		<result property="ent_date" column="ENT_DATE" />
 		<result property="grade" column="GRADE" />
+		<result property="user_img" column="USER_IMG" />
 	</resultMap>
 
-	<select id="getUser" parameterType="user">
+	<select id="getUser" resultMap="userResult">
 		<![CDATA[
 		SELECT *
-		FROM USERS
-		WHERE ID = #{id} and PASSWORD = #{pw}
+		FROM TB_COM_USER
+		WHERE ID = #{id} and PW = #{pw}
 		]]>
 	</select>
+	
+	<insert id="insertUser" parameterType="user">
+		<![CDATA[
+			INSERT INTO TB_COM_USER(ID, PW, EMAIL, NAME, BIRTH, PHONE_NUM, ADDRESS, POST_NUM, ENT_DATE, GRADE, USER_IMG) 
+			VALUES(#{id}, #{pw}, #{email}, #{name}, #{birth}, #{phone_num}, #{address}, #{post_num}, (to_date(sysdate, 'yyyy mm dd')), #{grade}, #{user_img})
+		]]>
+	</insert>
+	
+	<update id="modifyUser" parameterType="user">
+		<![CDATA[
+		UPDATE TB_COM_USER
+		SET PW = ${pw}
+		,EMAIL = ${email}
+		,PHONE_NUM = ${phone_num}
+		WHERE ID = ${id}
+		]]>
+	</update>
+	
+	<delete id="deleteUser" parameterType="user">
+		<![CDATA[
+		DELETE FROM TB_COM_USER
+		SET PW = ${pw}
+		,EMAIL = ${email}
+		,PHONE_NUM = ${phone_num}
+		WHERE ID = #{id} and PW = #{pw}
+		]]>
+	</delete>
+	
+	
 
 </mapper>

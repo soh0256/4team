@@ -57,10 +57,10 @@
 		SELECT *
 		FROM NOTICE
 		WHERE 1 = 1
-		<if test="searchCondition == 'TITLE'">
+		<if test="searchCondition == 'Notice_TITLE'">
 			AND Notice_TITLE LIKE '%'||#{searchKeyword}||'%'
 		</if>
-		<if test="searchCondition == 'CONTENT'">
+		<if test="searchCondition == 'Notice_CONTENTS'">
 			AND Notice_CONTENTS LIKE '%'||#{searchKeyword}||'%'
 		</if>
 		ORDER BY Notice_NO DESC
