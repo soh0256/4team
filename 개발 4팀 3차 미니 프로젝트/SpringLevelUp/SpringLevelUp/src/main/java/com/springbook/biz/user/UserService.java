@@ -1,13 +1,13 @@
 package com.springbook.biz.user;
 
 public interface UserService {
-	// CRUD ±â´ÉÀÇ ¸Ş¼Òµå ±¸Çö
-	// È¸¿ø µî·Ï
+	// CRUD ê¸°ëŠ¥ì˜ ë©”ì†Œë“œ êµ¬í˜„
+	// íšŒì› ë“±ë¡
 	public UserVO getUser(UserVO vo);
 	
 	void insertUser(UserVO vo);
 	
-	void updateUser(UserVO vo);
+	void modifyUser(UserVO vo);
 	
 	void deleteUser(UserVO vo);
 }

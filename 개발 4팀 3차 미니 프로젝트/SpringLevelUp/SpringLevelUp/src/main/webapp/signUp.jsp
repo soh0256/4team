@@ -18,58 +18,78 @@
 		<h1>회원가입</h1>
 	</center>
 		<hr>
-		<form action="signUp.do" method="post" class="form-horizontal">
+
+  		<form action="signUp.do" method="post" class="form-horizontal" >
+  			<div class="form-group">
+    			<label for="inputId" class="col-sm-2 control-label">이미지 파일</label>
+    			<div class="col-sm-5">
+      			<input type="text" class="form-control" id="user_image" name="user_image" value="${param.user_img}" placeholder="프로필 이미지" autofocus>
+    			</div>
+  			</div>
+  		<form action="signUp.do" method="post" class="form-horizontal" >
   			<div class="form-group">
     			<label for="inputId" class="col-sm-2 control-label">아이디</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="inputId" name="id" placeholder="ID" autofocus>
+      			<input type="text" class="form-control" id="id" name="id" value="${param.id}" placeholder="ID" autofocus>
     			</div>
   			</div>
   			<div class="form-group">
     			<label for="inputPassword" class="col-sm-2 control-label">비밀번호</label>
     			<div class="col-sm-5">
-      			<input type="password" class="form-control" id="inputPassword" name="pw" placeholder="Password">
+      			<input type="password" class="form-control" id="pw" name="pw" placeholder="Password" value="${param.pw}">
     			</div>
   			</div>
+  			
   			<div class="form-group">
     			<label for="inputEmail" class="col-sm-2 control-label">이메일</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email">
+      			<input type="text" class="form-control" id="email" name="email" placeholder="Email" value="${param.email}">
     			</div>
   			</div>
+  			
   			<div class="form-group">
     			<label for="inputName" class="col-sm-2 control-label">이름</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="inputName" name="name" placeholder="Name">
+      			<input type="text" class="form-control" id="name" name="name" placeholder="Name" value="${param.name}">
     			</div>
   			</div>
   			<div class="form-group">
     			<label for="birth" class="col-sm-2 control-label">생년월일</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="birth" name="birth" required="required" maxlength="10">
+      			<input type="text" class="form-control" id="birth" name="birth" required="required" maxlength="10" value="${param.birth}">
     			</div>
   			</div>
   			<div class="form-group">
     			<label for="inputPhone" class="col-sm-2 control-label">핸드폰번호</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="inputPhone" name="phone_num" placeholder="Phone">
+      			<input type="text" class="form-control" id="phone_num" name="phone_num" value="${param.phone_num}" placeholder="하이픈 없이 숫자만 입력해주세요">
     			</div>
   			</div>
   			<div class="form-group">
-    			<label for="inputAddress" class="col-sm-2 control-label">주소</label>
+    			<label for="inputAddress" class="col-sm-2 control-label">우편번호</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="inputAddress" name="address" placeholder="Address">
+      			<input type="text" class="form-control" id="post_num" name="post_num" value="${param.post_num}" placeholder="검색을 이용해주세요">
     			</div>
   			</div>
+  			
+  			<div class="form-group">
+    			<label for="inputAddress" class="col-sm-2 control-label">주소</label>
+    			<div class="col-sm-5">
+      			<input type="text" class="form-control" id="address" name="address" value="${param.address}" placeholder="Address">
+    			</div>
+  			</div>
+  			
   			<div class="form-group">
     			<label for="inputAddress" class="col-sm-2 control-label">권한</label>
     			<div class="col-sm-5">
       			<select name="grade">
-  							<option value="User">사용자</option>
- 							<option value="Admin">관리자</option>
+  							<option value="${param.grade}">사용자</option>
+ 							<option value="${param.grade}">관리자</option>
 				</select>
     			</div>
   			</div>
+  			
+
   			<div class="form-group">
     			<div class="col-sm-offset-2 col-sm-10">
     			</div>

@@ -16,19 +16,19 @@
 			<table border="1" cellpadding="0" cellspacing="0">
 				<tr>
 					<td bgcolor="orange">아이디</td>
-					<td><input type="text" name="id" /></td>
+					<td><input type="text" name="id" value="${user.id}"/></td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">새 비밀번호</td>
-					<td><input type="pw" name="pw"/></td>
+					<td><input type="pw" name="pw" value="${user.pw}"/></td>
 				</tr>
 				<tr>
 					<td bgcolor=rgb(0, 204, 255)>이메일</td>
-					<td><input type="email" name="email"/></td>
+					<td><input type="email" name="email" value="${user.email}"/></td>
 				</tr>
 				<tr>
 					<td bgcolor=rgb(0, 204, 255)>휴대폰번호</td>
-					<td><input type="phone_num" name="phone_num"/></td>
+					<td><input type="phone_num" name="phone_num" value="${user.phone_num}"/></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">

@@ -1,97 +1,122 @@
 package com.springbook.view.board;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.springbook.biz.user.UserService;
 import com.springbook.biz.user.UserVO;
 import com.springbook.biz.user.impl.UserDAO;
 
 @Controller
-public class UserController {
+@SessionAttributes("user")
+public class UserController implements HttpSessionListener{//ë“œë””ì–´ ì‚¬ì§„ì˜¤ë¥˜ì˜ ì›ì¸? ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„ì¸ê°€..?
 
+	@Autowired//ë°˜ë“œì‹œ ì¨ì£¼ì–´ì•¼ ê°ì²´ ì£¼ì…ë¨, ì¤‘ìš”
+	private UserService userService;//ë„ê°’ì˜ ì›ì¸ì¼ê¹Œ ë“œë””ì–´
 	
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	@RequestMapping(value = "/signUp.do", method = RequestMethod.GET)
 	public String signUpView(UserVO vo) {
 
-		System.out.println("È¸¿ø°¡ÀÔ È­¸éÀ¸·Î ÀÌµ¿");
+		System.out.println("íšŒì›ê°€ì… í™”ë©´ìœ¼ë¡œ ì´ë™");
 			
 		return "signUp.jsp";
 	}
+	
+	
 		
-	// HttpSession°´Ã¼¸¦ ¸Å°³º¯¼ö·Î ¹ŞÀ½
+	// HttpSessionê°ì²´ë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ìŒ
 	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
-	public String login(UserVO vo, UserDAO userDAO) {
+	public String signUp(UserVO vo) throws IOException{
 
-		System.out.println("È¸¿ø°¡ÀÔ Ã³¸®");
+		System.out.println("UserControllerì˜ signUp í˜¸ì¶œ");
 			
 		if(vo.getId() == null || vo.getId().equals("")) { 
-			throw new IllegalArgumentException("¾ÆÀÌµğ´Â ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."); 
+			throw new IllegalArgumentException("ì•„ì´ë””ëŠ” ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."); 
 		}else if(vo.getPw() == null || vo.getPw().equals("")) { 
-			throw new IllegalArgumentException("ºñ¹Ğ¹øÈ£´Â ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."); 
+			throw new IllegalArgumentException("ë¹„ë°€ë²ˆí˜¸ëŠ” ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."); 
 		}else if(vo.getName() == null || vo.getName().equals("")) { 
-			throw new IllegalArgumentException("ÀÌ¸§Àº ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."); 
+			throw new IllegalArgumentException("ì´ë¦„ì€ ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."); 
 		}
 		
-		userDAO.insertUser(vo);
+		userService.insertUser(vo);//ë„ê°’ì˜ ì›ì¸ì¼ê¹Œ ë“œë””ì–´(userDao.insertUserê°€ ì•„ë‹ˆë¼)
 		
 		return "login.jsp";
 		
 	}
 	
+	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
+	public String loginView(UserVO vo) {
+		return "login.jsp";
+	}
 	
-	// ¾ÏÈ£ º¯°æ
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public String getUser(UserVO vo, HttpSession session) {
+		try {
+			UserVO user = userService.getUser(vo);
+			session.setAttribute("user", user);//í•œ ë°ì´í„°ë¥¼ ë‹´ëŠ”ê²Œ ì•„ë‹ˆë¼ ì „ì²´ë¥¼ ë‹´ëŠ”ë‹¤. 
+			if(user!=null) 
+				return "getBoardList.jsp";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "index.jsp";
+		} 
+		
+		return null;
+		
+	}
+	
+	
+	// ì•”í˜¸ ë³€ê²½
 	@RequestMapping(value = "/modify.do", method = RequestMethod.GET)
-	public String modifyView(UserVO vo) {
-
-		System.out.println("È¸¿ø Á¤º¸ º¯°æ È­¸éÀ¸·Î ÀÌµ¿");
-			
+	public String modifyView(UserVO vo, HttpSession session) {
+		System.out.println("íšŒì› ì •ë³´ ë³€ê²½ í™”ë©´ìœ¼ë¡œ ì´ë™");
+		session.setAttribute("user", vo);
 		return "modify.jsp";
 	}
-		
-	// HttpSession°´Ã¼¸¦ ¸Å°³º¯¼ö·Î ¹ŞÀ½
+	
+	// ì•”í˜¸ ë³€ê²½
 	@RequestMapping(value = "/modify.do", method = RequestMethod.POST)
-	public String modify(UserVO vo, UserDAO userDAO) {
-
-		System.out.println("È¸¿ø Á¤º¸ º¯°æ Ã³¸®");
-			
-		if(vo.getId() == null || vo.getId().equals("")) { 
-			throw new IllegalArgumentException("¾ÆÀÌµğ´Â ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."); 
-		}else if(vo.getPw() == null || vo.getPw().equals("")) { 
-			throw new IllegalArgumentException("ºñ¹Ğ¹øÈ£´Â ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."); 
-		}
-			
-		userDAO.updateUser(vo);
-			
-		
-		return "login.jsp";
-		
-	}
-	// È¸¿ø Å»Åğ
-	@RequestMapping(value = "/delete.do", method = RequestMethod.GET)
-	public String deleteView(UserVO vo) {
-		
-		System.out.println("È¸¿ø Å»Åğ È­¸éÀ¸·Î ÀÌµ¿");
-		
-		return "delete.jsp";
+	public String modifyUser(UserVO vo, HttpSession session) {
+		System.out.println("íšŒì› ì •ë³´ ë³€ê²½ ê°’ postë¡œ ë„˜ê¹€");
+		session.setAttribute("user", vo);
+		userService.deleteUser(vo);
+		return "getBoardList.jsp";
 	}
 	
-	//HttpSession °´Ã¼¸¦ ¸Å°³º¯¼ö·Î ¹ŞÀ½
-	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
-	public String delete(UserVO vo, UserDAO userDAO) {
-		System.out.println("È¸¿ø »èÁ¦ Ã³¸®");
-		
-		userDAO.deleteUser(vo);
-		
-		return "login.jsp";
+	
+	
+
+	@Override
+	public void sessionCreated(HttpSessionEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void sessionDestroyed(HttpSessionEvent arg0) {
+		// TODO Auto-generated method stub
+		HttpSession session = arg0.getSession();
+		session.removeAttribute("id");
+		session.invalidate();
+	}
+		
+	
 	
 
 }
