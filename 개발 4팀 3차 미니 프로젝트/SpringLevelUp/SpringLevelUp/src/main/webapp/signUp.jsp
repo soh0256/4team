@@ -1,17 +1,31 @@
 <%@page contentType="text/html; charset=EUC-KR"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>회원가입</title>
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="dataTables.bootstrap.css" rel="stylesheet">
+<script src="js/jquery-1.9.1.js"></script>
 
-<title>회원가입</title>
+<script type="text/javascript">
+
+	function fn_save(){
+		if(!fn_validation()) return;
+
+		$("#phone_num").val($("#phone0").val() + "-" + $("#phone1").val() + "-" + $("#phone2").val());
+		$("#email").val($("mailID").val() +"@"+ $("#mailAD").val());
+		$("#birth").val($("birthY").val() + $("#birthM").val() + $("#birthD").val());
+		$("#joinFrm").submit();
+	}
+</script>
+
+
 </head>
 <body>
 	<center>
@@ -19,14 +33,7 @@
 	</center>
 		<hr>
 
-  		<form action="signUp.do" method="post" class="form-horizontal" >
-  			<div class="form-group">
-    			<label for="inputId" class="col-sm-2 control-label">이미지 파일</label>
-    			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="user_image" name="user_image" value="${param.user_img}" placeholder="프로필 이미지" autofocus>
-    			</div>
-  			</div>
-  		<form action="signUp.do" method="post" class="form-horizontal" >
+  		<form action="signUp.do" method="post" class="form-horizontal" id="joinFrm">
   			<div class="form-group">
     			<label for="inputId" class="col-sm-2 control-label">아이디</label>
     			<div class="col-sm-5">
@@ -43,8 +50,11 @@
   			<div class="form-group">
     			<label for="inputEmail" class="col-sm-2 control-label">이메일</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="email" name="email" placeholder="Email" value="${param.email}">
+      			<input type="text" class="form-control" id="mailID" name="mailID" placeholder="아이디" onkeydown="return fn_showKeyCode(event)"/ maxlength="10">
+      			@
+      			<input type="text" class="form-control" id="mailAd" name="mailAD" placeholder="메일사이트.com" onkeydown="return fn_showKeyCode(event)" maxlength="17"/>
     			</div>
+    			<input type="hidden" id="email" name="email"></div>
   			</div>
   			
   			<div class="form-group">
@@ -56,26 +66,40 @@
   			<div class="form-group">
     			<label for="birth" class="col-sm-2 control-label">생년월일</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="birth" name="birth" required="required" maxlength="10" value="${param.birth}">
+      			<input type="text" class="form-control" id="birthY" name="birth" required="required"  maxlength="4">
+      			<input type="text" class="form-control" id="birthM" name="birth" required="required"  maxlength="2">
+      			<input type="text" class="form-control" id="birthD" name="birth" required="required"  maxlength="2">
     			</div>
+    			<input type="hidden" id="birth" name="birth">
   			</div>
+  			
   			<div class="form-group">
     			<label for="inputPhone" class="col-sm-2 control-label">핸드폰번호</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="phone_num" name="phone_num" value="${param.phone_num}" placeholder="하이픈 없이 숫자만 입력해주세요">
-    			</div>
-  			</div>
+	    			<select class="form-control" id="phone0" name="phoneCd" required="required">
+								<option value="1">010</option>
+								<option value="4">070</option>
+								<option value="2">02</option>
+								<option value="5">032</option>
+								<option value="6">031</option>
+			     	</select>
+	    			<input class="form-control" type="text" id="phone1" maxlength="4" required="required" onkeydown="return fn_showKeyCode(event)"/>
+	    			<input class="form-control" type="text" id="phone2" maxlength="4" required="required" onkeydown="return fn_showKeyCode(event)"/>
+	     		</div>
+				<input type="hidden" id="phone_num" name="phone_num"></div>
+    		</div>
+    			
   			<div class="form-group">
-    			<label for="inputAddress" class="col-sm-2 control-label">우편번호</label>
+    			<label for="inputAddress" class="col-sm-2 control-label">기본주소</label>
     			<div class="col-sm-5">
       			<input type="text" class="form-control" id="post_num" name="post_num" value="${param.post_num}" placeholder="검색을 이용해주세요">
     			</div>
   			</div>
   			
   			<div class="form-group">
-    			<label for="inputAddress" class="col-sm-2 control-label">주소</label>
+    			<label for="inputAddress" class="col-sm-2 control-label">상세주소</label>
     			<div class="col-sm-5">
-      			<input type="text" class="form-control" id="address" name="address" value="${param.address}" placeholder="Address">
+      			<input type="text" class="form-control" id="address" name="address" value="${param.address}" placeholder="나머지 주소 입력해주세요">
     			</div>
   			</div>
   			
@@ -83,13 +107,12 @@
     			<label for="inputAddress" class="col-sm-2 control-label">권한</label>
     			<div class="col-sm-5">
       			<select name="grade">
-  							<option value="${param.grade}">사용자</option>
- 							<option value="${param.grade}">관리자</option>
+  							<option value="User">사용자</option>
+ 							<option value="Admin">관리자</option>
 				</select>
     			</div>
   			</div>
   			
-
   			<div class="form-group">
     			<div class="col-sm-offset-2 col-sm-10">
     			</div>
@@ -102,6 +125,5 @@
   			</div>
 			</form>
 		<hr>
-	
 </body>
 </html>

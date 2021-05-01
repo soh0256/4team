@@ -22,18 +22,17 @@ public class UserVO {
 	private String pw;
 	private String email;
 	private String name;
-	private String user_img;
 	private String birth;
 	private String phone_num;
 	private String address;
 	private String post_num;
 	private Date ent_date;
 	private String grade;
-
+	
 	@Override
 	public String toString() {
 		return "UserVO [id=" + id + ", pw=" + pw + ", email=" + email + ", name=" 
-				+ name + ", birth=" + ", user_img" + user_img
+				+ name + ", birth=" 
 				+ birth + ", phone_num=" + phone_num + ", address=" + address + ", post_num=" 
 				+ post_num + ", ent_date=" + ent_date + ", grade=" + grade + "]";
 	}

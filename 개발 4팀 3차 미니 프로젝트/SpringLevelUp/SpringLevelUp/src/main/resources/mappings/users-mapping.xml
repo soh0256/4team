@@ -18,7 +18,6 @@
 		<result property="post_num" column="POST_NUM" />
 		<result property="ent_date" column="ENT_DATE" />
 		<result property="grade" column="GRADE" />
-		<result property="user_img" column="USER_IMG" />
 	</resultMap>
 
 	<select id="getUser" resultMap="userResult">
@@ -31,8 +30,8 @@
 	
 	<insert id="insertUser" parameterType="user">
 		<![CDATA[
-			INSERT INTO TB_COM_USER(ID, PW, EMAIL, NAME, BIRTH, PHONE_NUM, ADDRESS, POST_NUM, ENT_DATE, GRADE, USER_IMG) 
-			VALUES(#{id}, #{pw}, #{email}, #{name}, #{birth}, #{phone_num}, #{address}, #{post_num}, (to_date(sysdate, 'yyyy mm dd')), #{grade}, #{user_img})
+			INSERT INTO TB_COM_USER(ID, PW, EMAIL, NAME, BIRTH, PHONE_NUM, ADDRESS, POST_NUM, ENT_DATE, GRADE) 
+			VALUES(#{id}, #{pw}, #{email}, #{name}, #{birth}, #{phone_num}, #{address}, #{post_num}, (to_date(sysdate, 'yyyy mm dd')), #{grade})
 		]]>
 	</insert>
 	
