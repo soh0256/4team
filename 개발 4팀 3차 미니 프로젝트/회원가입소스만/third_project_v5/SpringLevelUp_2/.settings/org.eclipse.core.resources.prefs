@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/springbook/biz/board/BoardVO.java=EUC-KR
+encoding//src/main/java/com/springbook/biz/common/AfterAdvice.java=EUC-KR
+encoding//src/main/java/com/springbook/biz/user/UserService.java=EUC-KR
+encoding//src/main/java/com/springbook/biz/user/impl/UserDAO.java=EUC-KR
+encoding//src/main/java/com/springbook/view/board/BoardController.java=EUC-KR
+encoding//src/main/java/com/springbook/view/board/UserController.java=EUC-KR
