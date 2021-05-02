@@ -63,7 +63,7 @@
 		
 	<center>
 		<h1><spring:message code="message.board.list.mainTitle"/></h1>
-		<h3>${userName}<spring:message code="message.board.list.welcomeMsg"/><br/></h3>
+		<h3>${user.id}<spring:message code="message.board.list.welcomeMsg"/><br/></h3>
 		
 		<!-- 검색 시작 -->
 		<form class="form-inline" action="getBoardList.do" method="post">

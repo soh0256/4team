@@ -101,9 +101,24 @@ public class UserController implements HttpSessionListener{//드디어 사진오
 		return "getBoardList.jsp";
 	}
 	
+	// 회원 탈퇴
+	@RequestMapping(value = "/delete.do", method = RequestMethod.GET)
+	public String deleteView(UserVO vo) {
+		System.out.println("회원 탈퇴 화면으로 이동");
+		return "delete.jsp";
+	}
 	
+	//HttpSession 객체를 매개변수로 받음
+	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
+	public String delete(UserVO vo, UserDAO userDAO) {
+		System.out.println("회원 삭제 처리");
+			
+		userService.deleteUser(vo);
+			
+		return "login.jsp";
+			
+	}
 	
-
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0) {
 		// TODO Auto-generated method stub

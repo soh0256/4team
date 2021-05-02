@@ -48,9 +48,6 @@
 	<delete id="deleteUser" parameterType="user">
 		<![CDATA[
 		DELETE FROM TB_COM_USER
-		SET PW = ${pw}
-		,EMAIL = ${email}
-		,PHONE_NUM = ${phone_num}
 		WHERE ID = #{id} and PW = #{pw}
 		]]>
 	</delete>
